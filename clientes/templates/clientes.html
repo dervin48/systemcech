@@ -1,0 +1,196 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=`, initial-scale=1.0">
+    <title>CRUD DJANGO</title>
+    <link rel="stylesheet" href="{% static 'main.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+     rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<style>
+    .form_main {
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    padding: 30px 30px 30px 30px;
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.062);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .form_main::before {
+    position: absolute;
+    content: "";
+    width: 300px;
+    height: 300px;
+    background-color: rgb(209, 193, 255);
+    transform: rotate(45deg);
+    left: -180px;
+    bottom: 30px;
+    z-index: 1;
+    border-radius: 30px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.082);
+  }
+  
+  .heading {
+    font-size: 2em;
+    color: #2e2e2e;
+    font-weight: 700;
+    margin: 5px 0 10px 0;
+    z-index: 2;
+  }
+  
+  .inputContainer {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  
+  .inputIcon {
+    position: absolute;
+    left: 3px;
+  }
+  
+  .inputField {
+    width: 100%;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid rgb(173, 173, 173);
+    margin: 10px 0;
+    color: black;
+    font-size: .8em;
+    font-weight: 500;
+    box-sizing: border-box;
+    padding-left: 30px;
+  }
+  
+  .inputField:focus {
+    outline: none;
+    border-bottom: 2px solid rgb(199, 114, 255);
+  }
+  
+  .inputField::placeholder {
+    color: rgb(80, 80, 80);
+    font-size: 1em;
+    font-weight: 500;
+  }
+  
+  #button {
+    z-index: 2;
+    position: relative;
+    width: 100%;
+    border: none;
+    background-color: rgb(162, 104, 255);
+    height: 30px;
+    color: white;
+    font-size: .8em;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  #button:hover {
+    background-color: rgb(126, 84, 255);
+  }
+  
+  .forgotLink {
+    z-index: 2;
+    font-size: .7em;
+    font-weight: 500;
+    color: rgb(44, 24, 128);
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+  }
+</style>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <form action="{% url 'create_cliente' %}" method="POST" class="card card-body bg-light">
+                    {% csrf_token %}
+
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" placeholder="Ingrese nombre" class="form-control mb-2">
+            
+                    <label for="direccion">Direccion</label>
+                    <input type="text" name="direccion" placeholder="Ingrese Direccion" class="form-control mb-2">
+
+                    <label for="telefono">Telefono</label>
+                    <input type="text" name="telefono" placeholder="Ingrese Telefono" class="form-control mb-2">
+
+                    <label for="email">Correo</label>
+                    <input type="text" name="email" placeholder="Ingrese Correo" class="form-control mb-2">
+            <div class="text-center">
+                <button class="btn btn-success" style="width:7em;" type="submit">Guardar</button>
+            </div>
+                
+
+                   
+                   
+                </form>
+             
+                    
+                
+                
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    
+
+   
+<div class="card card-body mt-5 100vh">
+    <table  class="table table-bordered table-striped table-responsive-lg">
+        <tr>
+            <th>Nombre</th>
+            <th>Direccion</th>
+            <th>Telefono</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+        </tr>
+        {% for cliente in clientes %}
+        <tr>
+            <td>{{cliente.nombre}}</td>
+            <td>{{cliente.direccion}}</td>
+            <td>{{cliente.telefono}}</td>
+            <td>{{cliente.email}}</td>
+            <td>
+                <form class="text-center">
+                       <a class="btn btn-warning" href="">Editar</a>             
+                    <a class="btn btn-danger" href="{% url 'delete_cliente' cliente.id %}">Eliminar</a>
+                </form>
+                
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No hay clientes</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+ 
+
+
+
+
+</body>
+</html>
